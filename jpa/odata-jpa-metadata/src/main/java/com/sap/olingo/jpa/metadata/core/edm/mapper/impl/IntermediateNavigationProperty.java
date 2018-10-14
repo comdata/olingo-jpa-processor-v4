@@ -396,7 +396,9 @@ final class IntermediateNavigationProperty extends IntermediateModelElement
 			// "mappedBy" at the Parent.
 			if (mappedBy != null && !mappedBy.isEmpty()) {
 				partner = targetType.getAssociation(mappedBy);
-				edmNaviProperty.setPartner(partner.getExternalName());
+				if (partner!=null) {
+					edmNaviProperty.setPartner(partner.getExternalName());
+				}
 			} else {
 				partner = targetType.getCorrespondingAssiciation(sourceType, getInternalName());
 				if (partner != null && ((IntermediateNavigationProperty) partner).isMapped()) {

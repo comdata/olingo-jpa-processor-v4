@@ -134,7 +134,7 @@ final class IntermediateSchema extends IntermediateModelElement {
 		if (edmSchema == null) {
 			lazyBuildEdmItem();
 		}
-		lazyBuildEdmItem();
+		
 		return edmSchema;
 	}
 
