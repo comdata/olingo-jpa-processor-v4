@@ -271,8 +271,10 @@ class IntermediateServiceDocument implements JPAServiceDocument {
 	private List<CsdlSchema> extractEdmSchemas() throws ODataJPAModelException {
 		final List<CsdlSchema> schemas = new ArrayList<>();
 		try {
-			if (schemaListInternalKey.isEmpty())
+			if (schemaListInternalKey.isEmpty()) {
 				buildIntermediateSchemas();
+			}
+				
 			for (final Entry<String, IntermediateSchema> schema : schemaListInternalKey.entrySet()) {
 				IntermediateSchema intermediateSchema = schema.getValue();
 				schemas.add(schema.getValue().getEdmItem());
