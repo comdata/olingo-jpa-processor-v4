@@ -35,6 +35,7 @@ pipeline {
 	        			sh 'cd jpa/odata-jpa-processor && mvn deploy:deploy-file -Dfile=target/odata-jpa-processor-0.2.10-SNAPSHOT.jar -DpomFile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://jenkins:8081/repository/snapshots'
 	   					sh 'cd jpa/odata-jpa-annotation && mvn deploy:deploy-file -Dfile=target/odata-jpa-annotation-0.2.10-SNAPSHOT.jar -DpomFile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://jenkins:8081/repository/snapshots'
 	   					sh 'cd jpa/odata-jpa-metadata && mvn deploy:deploy-file -Dfile=target/odata-jpa-metadata-0.2.10-SNAPSHOT.jar -DpomFile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://jenkins:8081/repository/snapshots'
+	   					sh 'mvn deploy:deploy-file -DpomFile=pom.xml -Dfile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://jenkins:8081/repository/snapshots'
 	   				}
 	   			}
 	  
