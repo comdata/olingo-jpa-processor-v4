@@ -606,7 +606,7 @@ public final class JsonDeserializer implements ODataDeserializer {
     try {
       String asText = jsonNode.asText();
       if (jsonNode instanceof BooleanNode) {
-    	  asText="\""+asText+"\"";
+    	  asText="'"+asText+"'";
       }
       
 	return type.valueOfString(asText, isNullable, maxLength, precision, scale, isUnicode, javaClass);
