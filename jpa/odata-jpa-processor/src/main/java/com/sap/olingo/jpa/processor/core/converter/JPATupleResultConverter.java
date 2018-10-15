@@ -111,14 +111,17 @@ abstract class JPATupleResultConverter implements JPAResultConverter {
     try {
       for (final JPAAssociationAttribute a : jpaStructuredType.getDeclaredAssociations()) {
         path = jpaConversionTargetEntity.getAssociationPath(buildPath(prefix, a));
-        final JPAExpandResult child = jpaQueryResult.getChild(path);
-        final String linkURI = rootURI + JPAPath.PATH_SEPERATOR + path.getAlias();
-        if (child != null) {
-          // TODO Check how to convert Organizations('3')/AdministrativeInformation?$expand=Created/User
-          entityExpandLinks.add(getLink(path, row, child, linkURI));
-        } else
-          entityExpandLinks.add(getLink(path, linkURI));
-
+        if (path!=null) {
+	        final JPAExpandResult child = jpaQueryResult.getChild(path);
+	        final String linkURI = rootURI + JPAPath.PATH_SEPERATOR + path.getAlias();
+	        if (child != null) {
+	          // TODO Check how to convert Organizations('3')/AdministrativeInformation?$expand=Created/User
+	          entityExpandLinks.add(getLink(path, row, child, linkURI));
+	        } else {
+	          entityExpandLinks.add(getLink(path, linkURI));
+	        }
+        }
+        
       }
     } catch (ODataJPAModelException e) {
       throw new ODataJPAQueryException(ODataJPAQueryException.MessageKeys.QUERY_RESULT_NAVI_PROPERTY_ERROR,
