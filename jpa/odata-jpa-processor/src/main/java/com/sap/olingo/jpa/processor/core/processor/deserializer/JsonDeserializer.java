@@ -605,9 +605,6 @@ public final class JsonDeserializer implements ODataDeserializer {
     Class<?> javaClass = getJavaClassForPrimitiveType(mapping, type);
     try {
       String asText = jsonNode.asText();
-      if (jsonNode instanceof BooleanNode) {
-    	  asText="'"+asText+"'";
-      }
       
 	return type.valueOfString(asText, isNullable, maxLength, precision, scale, isUnicode, javaClass);
     } catch (final EdmPrimitiveTypeException e) {
