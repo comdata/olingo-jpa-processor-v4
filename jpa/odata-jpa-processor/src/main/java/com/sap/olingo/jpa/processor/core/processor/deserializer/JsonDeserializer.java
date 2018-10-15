@@ -55,6 +55,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public final class JsonDeserializer implements ODataDeserializer {
@@ -603,7 +604,12 @@ public final class JsonDeserializer implements ODataDeserializer {
     checkJsonTypeBasedOnPrimitiveType(name, type, jsonNode);
     Class<?> javaClass = getJavaClassForPrimitiveType(mapping, type);
     try {
-      return type.valueOfString(jsonNode.asText(), isNullable, maxLength, precision, scale, isUnicode, javaClass);
+      String asText = jsonNode.asText();
+      if (jsonNode instanceof BooleanNode) {
+    	  asText="\""+asText+"\"";
+      }
+      
+	return type.valueOfString(asText, isNullable, maxLength, precision, scale, isUnicode, javaClass);
     } catch (final EdmPrimitiveTypeException e) {
       throw new DeserializerException("Invalid value: " + jsonNode.asText() + " for property: " + name, e,
           DeserializerException.MessageKeys.INVALID_VALUE_FOR_PROPERTY, name);
