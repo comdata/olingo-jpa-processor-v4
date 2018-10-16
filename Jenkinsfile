@@ -22,7 +22,9 @@ pipeline {
 
 		stage('Build') { 
 			steps {
-				sh 'cd jpa && mvn -T 1C -B -DskipTests clean install'
+				withMaven() {
+					sh 'cd jpa && mvn -T 1C -B -DskipTests clean deploy'
+				}
             }
 
 		}
