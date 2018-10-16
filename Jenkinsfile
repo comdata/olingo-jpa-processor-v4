@@ -9,7 +9,7 @@ pipeline {
 		stage('Prepare') {
 		    steps {
 			sh 'apk update'
-			sh 'apk add rsync openssh mariadb mariadb-client openrc git'
+			sh 'apk add openrc git'
 		    } 
 		}
 	
