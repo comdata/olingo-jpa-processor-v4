@@ -38,6 +38,15 @@ pipeline {
 	   					sh 'cd jpa && mvn deploy:deploy-file -DpomFile=pom.xml -Dfile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://jenkins:8081/repository/snapshots'
 	   				}
 	   			}
+	   			stage('Archive') {
+	   			    steps {
+	   			        archiveArtifacts artifacts: 'jpa/**/target/**/*.jar', fingerprint: true
+	   			    	archiveArtifacts artifacts: '**/pom.xml', fingerprint: true
+	   			    }
+
+	   			    
+	   			}
+
 	  
 	   		}	
 	    }
