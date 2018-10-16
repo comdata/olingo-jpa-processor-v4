@@ -658,15 +658,22 @@ public final class JPACUDRequestProcessor extends JPAAbstractRequestProcessor {
           // PATCH .../Organizations('1')/AdministrativeInformation/Updated/User
           final JPAAssociationPath path = requestEntity.getEntityType().getAssociationPath(edmEntitySetInfo
               .getNavigationPath());
+          if (path!=null) {
           final JPARequestEntity linkedEntity = requestEntity.getRelatedEntities().get(path).get(0);
           final Object linkedResult = getLinkedResult(updateResult.getModifyedEntity(), path);
           updatedEntity = convertEntity(linkedEntity.getEntityType(), linkedResult, request.getAllHeaders());
+          } else {
+        	  updatedEntity = convertEntity(requestEntity.getEntityType(), updateResult.getModifyedEntity(), request
+        	            .getAllHeaders());
+        
+          }
         } catch (ODataJPAModelException e) {
           throw new ODataJPAProcessorException(e, HttpStatusCode.INTERNAL_SERVER_ERROR);
         }
-      } else
+      } else {
         updatedEntity = convertEntity(requestEntity.getEntityType(), updateResult.getModifyedEntity(), request
             .getAllHeaders());
+      }
       EntityCollection entities = new EntityCollection();
       entities.getEntities().add(updatedEntity);
       createSuccessResponce(response, responseFormat, serializer.serialize(request, entities));
