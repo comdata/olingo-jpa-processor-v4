@@ -23,7 +23,7 @@ pipeline {
 		stage('Build') { 
 			steps {
 				withMaven() {
-					sh 'cd jpa && mvn -T 1C -B -DskipTests clean deploy'
+					sh 'cd jpa && $MVN_CMD -T 1C -B -DskipTests clean deploy'
 				}
             }
 
@@ -34,10 +34,10 @@ pipeline {
 
 				stage('Deploy') {
 	        		steps {
-	        			sh 'cd jpa/odata-jpa-processor && mvn deploy:deploy-file -Dfile=target/odata-jpa-processor-0.2.10-SNAPSHOT.jar -DpomFile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://nas:8081/repository/snapshots'
-	   					sh 'cd jpa/odata-jpa-annotation && mvn deploy:deploy-file -Dfile=target/odata-jpa-annotation-0.2.10-SNAPSHOT.jar -DpomFile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://nas:8081/repository/snapshots'
-	   					sh 'cd jpa/odata-jpa-metadata && mvn deploy:deploy-file -Dfile=target/odata-jpa-metadata-0.2.10-SNAPSHOT.jar -DpomFile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://nas:8081/repository/snapshots'
-	   					sh 'cd jpa && mvn deploy:deploy-file -DpomFile=pom.xml -Dfile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://nas:8081/repository/snapshots'
+	        			sh 'cd jpa/odata-jpa-processor && $MVN_CMD deploy:deploy-file -Dfile=target/odata-jpa-processor-0.2.10-SNAPSHOT.jar -DpomFile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://nas:8081/repository/snapshots'
+	   					sh 'cd jpa/odata-jpa-annotation && $MVN_CMD deploy:deploy-file -Dfile=target/odata-jpa-annotation-0.2.10-SNAPSHOT.jar -DpomFile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://nas:8081/repository/snapshots'
+	   					sh 'cd jpa/odata-jpa-metadata && $MVN_CMD deploy:deploy-file -Dfile=target/odata-jpa-metadata-0.2.10-SNAPSHOT.jar -DpomFile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://nas:8081/repository/snapshots'
+	   					sh 'cd jpa && $MVN_CMD deploy:deploy-file -DpomFile=pom.xml -Dfile=pom.xml -DrepositoryId=archiva.snapshots -Durl=http://nas:8081/repository/snapshots'
 	   				}
 	   			}
 //	   			stage('Archive') {
